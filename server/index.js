@@ -19,12 +19,23 @@
                  [ description ]
                );
               res.json(newTodo.rows[0]);
-            } catch (error) {
+            } catch (err) {
                 console.error(err.message);
             }
         })
 
         //get all  todos
+
+    app.get("./todos" ,async(res,req) => {
+
+        try {
+            const allTodos = await pool.query("SELECT * FROM todo ");
+            res.json(allTodos.rows);
+        } catch (err) {
+            console.error(err.massage);
+
+        }
+    })
 
         //update a todo
 
