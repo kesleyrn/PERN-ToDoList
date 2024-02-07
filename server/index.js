@@ -24,9 +24,10 @@
             }
         })
 
+
         //get all  todos
 
-    app.get("./todos" ,async(res,req) => {
+    app.get("./todos" ,async(req,res) => {
 
         try {
             const allTodos = await pool.query("SELECT * FROM todo ");
@@ -37,7 +38,25 @@
         }
     })
 
+         //Get a todo
+
+         app.get("./todos/:id", async(req,res) =>{
+            
+            try {
+                const { id } = req.params;
+                const todo = await pool.query("SELECT * FROM todo WHERE todo_id = $1" , [id])
+
+                res.json(todo.rows[0])
+            } catch (err) {
+                console.error(err.massage);
+    
+            }
+         })
+
+
         //update a todo
+
+
 
         //delete a todo
 
